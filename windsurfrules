@@ -40,7 +40,6 @@ public function store(CreateTodoData $data, Request $request, CreateTodoAction $
 }
 ```
 
-
 app/Modules/*/Services
   • Single Responsibility Principle
 	•	Use Service pattern.
