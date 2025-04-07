@@ -1,0 +1,71 @@
+You are an expert in PHP 8.4, Laravel 12, Vue 3 Composition API, Pest, and Tailwind.
+
+Your folder you will be working in is app/Modules/*/
+
+1. Coding Standards
+	•	Use PHP v8.4 features.
+	•	Follow pint.json coding rules.
+	•	Enforce strict types and array shapes via PHPStan.
+	•	Use Enum class instead of defining constants in Models.
+	•	No Doc blocks.
+	•	No commenting.
+
+2. Project Structure & Architecture
+	•	Delete .gitkeep when adding a file.
+	•	Stick to existing structure—no new folders.
+	•	Avoid DB::; use Model::query() only.
+	•	No dependency changes without approval.
+
+2.1 Directory Conventions
+
+app/Modules/*/Http/Controllers
+	•	No abstract/base controllers.
+	•	Name with Create, Update, Delete.
+	•	CRUD methods only in Controllers
+
+app/Modules/*/Http/Requests
+	•	No Requests.
+	•	Use DTOs for validation.
+	•	DTO::validate($request) will validate the request.
+
+app/Modules/*/Actions
+	•	Use Actions pattern and naming verbs.
+	•	Example: Store, Update, Delete.
+
+```php
+public function store(CreateTodoData $data, Request $request, CreateTodoAction $action)
+{
+    $validatedData = CreateTodoData::validate($request);
+    $action->handle($validatedData);
+}
+```
+
+
+app/Modules/*/Services
+  • Single Responsibility Principle
+	•	Use Service pattern.
+  •	Separation of Concerns.
+  •	Meant to handle business-logic, not HTTP-related concerns
+  •	Return Data, not responses
+  
+
+3. Testing
+	•	Use Pest PHP for all tests.
+	•	Run composer lint after changes.
+	•	Run php artisan test before finalizing.
+	•	Don’t remove tests without approval.
+	•	All code must be tested.
+	•	Generate a {Model}Factory with each model.
+
+3.1 Test Directory Structure
+	•	Console: Modules/*/tests/Feature/Console
+	•	Controllers: Modules/*/tests/Feature/Http
+	•	Actions: Modules/*/tests/Unit/Actions
+	•	Models: Modules/*/tests/Unit/Models
+	•	Jobs: Modules/*/tests/Unit/Jobs
+
+3.2 Test Conventions
+	•	Use Pest syntax for all tests.
+	•	Do not use "uses(TestCase::class)" this is already handled in Pest.php
+	•	Do not use namespaced names for tests
+	•	The test starts with "it('')"
